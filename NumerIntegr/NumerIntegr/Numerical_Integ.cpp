@@ -1,22 +1,79 @@
 #include "Numerical_Integr.h"
 
 //метод Трапеции
-double NumericalInteg::Trap(const int& segm, const double& begin, const double& end, Generate function)
+//double NumericalInteg::Trap(const int& segm, const double& begin, const double& end, Generate function)
+//{
+//	double result = 0;
+//	double sumi = 0;
+//	
+//	for (int i = 0; i < segm; i++)
+//	{
+//		sumi +=(function.regularGrid[i].x() + function.regularGrid[i + 1].x())
+//			* function.func_regularGrid[i];
+//	}
+//	result = (function.regularGrid[0].x()*function.FuncInPoint(begin, function.sinx) + 
+//		function.regularGrid[segm].x() * function.FuncInPoint(begin, function.sinx) + sumi)/2;
+//	
+//	return result/10;
+//}
+//
+//double NumericalInteg::Trap(const int& segm, const double& begin, const double& end, Generate function)
+//{
+//
+//}
+
+NumericalInteg :: NumericalInteg(INTEGR type)
+{
+	switch (type)
+	{
+		
+	case Gauss1://Work
+	{
+		weight = { 2 };
+		points = { Point(0, 0, 0) };
+		break;
+	}
+	case Gauss4: //TO DO, dont work
+	{
+		weight = { (18+sqrt(30)/36), (18-sqrt(30)/36), (18 + sqrt(30) / 36), (18 - sqrt(30) / 36) };
+		points = {  Point(-sqrt((3-2*sqrt(6/5))/7), 0, 0), 
+					Point(sqrt((3 - 2 * sqrt(6 / 5)) / 7), 0, 0),
+					Point(-sqrt((3 + 2 * sqrt(6 / 5)) / 7), 0, 0),
+					Point(sqrt((3 + 2 * sqrt(6 / 5)) / 7), 0, 0) };
+		break;
+	}
+	case Gauss5:
+	{
+		//TO DO
+		break;
+	}
+	case Trap://Work
+	{
+		weight = { 1,1 };
+		points = { Point(1, 0, 0),Point(-1, 0, 0) };
+		break;
+	}
+	case Simpson://Work
+	{
+		weight = { 4/3, 1/3, 4/3, 1/3 };
+		points = { Point(0, 0, 0),Point(-1, 0, 0),Point(1, 0, 0) };
+		break;
+	}
+	}
+}
+
+double NumericalInteg::NumIntegrAction(const int& segm, const double& begin, const double& end, Generate function)
 {
 	double result = 0;
-	double sumi = 0;
-	
-	for (int i = 0; i < segm; i++)
+	double h = (end - begin) / segm;
+
+	for (int i = 0; i < segm +1; i++)
 	{
-		sumi +=(function.regularGrid[i].x() + function.regularGrid[i + 1].x())
-			* function.func_regularGrid[i];
+		for (int k = 0; k < points.size(); k++)
+		{
+			auto xik = Point((begin + i*h) + (1 + points[k].x()) * h / 2.0, 0, 0);
+			result += weight[k] * function.FuncInPoint(xik.x(), function.ReturnType());
+		}
 	}
-	result = (function.regularGrid[0].x()*function.FuncInPoint(begin, function.sinx) + 
-		function.regularGrid[segm].x() * function.FuncInPoint(begin, function.sinx) + sumi)/2;
-	//double ost = 0;
-	//for (int i = 0; i < segm+1; i++)
-	//{
-	//	ost += (pow(function.regularGrid[i].x(), 3) / 12) - sin(function.regularGrid[i].x());
-	//}
-	return result;
+	return result*h/2;
 }

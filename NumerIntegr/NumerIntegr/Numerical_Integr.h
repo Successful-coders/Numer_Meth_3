@@ -2,12 +2,17 @@
 #include "Point.h"
 #include "Function.h"
 
-class NumericalInteg
+enum INTEGR { Gauss1, Gauss4, Gauss5, Gauss6, Trap, Simpson };
+class NumericalInteg 
 {
+private:
+	
+	std::vector<Point> points;
+
+	std::vector<double> weight;
 public :
-	double GaussScheme1(const double& begin, const double& end);
-	double GaussScheme4(const double& begin, const double& end);
-	double GaussScheme5(const double& begin, const double& end);
-	double Trap(const int& segm,  const double& begin, const double& end, Generate function);
-	double Simpson(const double& begin, const double& end);
+	NumericalInteg(INTEGR type);
+
+
+	double NumIntegrAction(const int& segm, const double& begin, const double& end, Generate function);
 };
