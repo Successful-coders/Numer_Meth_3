@@ -1,8 +1,9 @@
 #include "Function.h"
 #include <iomanip>
-void Generate::Generate_regularGrid(const int& segm, const double& begin, const double& end)
+void Generate::Generate_regularGrid(const double& segm, const double& begin, const double& end)
 {
 	double h = (end - begin) / segm;
+	std::cout <<"h = " <<h << "\n";
 	for (double i = begin; i < end; i = i + h)
 	{
 		regularGrid.push_back(Point(i, 0, 0));

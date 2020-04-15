@@ -1,18 +1,53 @@
-
 #include"Numerical_Integr.h"
+#include <math.h>
+
+std::string Scheme(INTEGR function)
+{
+	if (function == Gauss1)
+		return "Gauss 1";
+	if (function == Trap)
+		return "Trapeze";
+	if (function == Simpson)
+		return "Simpson";
+}
+
+double Order(const double& leibIntegr, const double& numIntegrH, const double& numIntegrH2)
+{
+	double value = 0;
+	value = 1 + ((numIntegrH2 - numIntegrH) / (leibIntegr - numIntegrH2));
+	return log2f(value);
+}
 
 int main()
 {
 	Generate function(sinx);
-	NumericalInteg integral(Gauss1);
-	double begin = 0, end = 10;
-	int segment = 100;
+	NumericalInteg integral(Simpson);
+	double begin = 0, end = 1;
+	double segment = 100;
 
 	function.Generate_regularGrid(segment, begin, end);
 	function.Func(function.ReturnType());
-	std::cout << function.Leib_Integr(function.ReturnType(), begin, end) << "\n";
-	//std::cout << integral.Trap(segment,begin, end, function) << "\n";
-	//std::cout << fabs(function.Leib_Integr(function.sinx, begin, end) - integral.Trap(segment, begin, end, function)) << "\n";
-	//std::cout << 2.812424e-01 << "\n";
-	std::cout << integral.NumIntegrAction(segment,begin,end,function) << "\n";
+
+	double lebIntegr = function.Leib_Integr(function.ReturnType(), begin, end);
+	double numIntegr = integral.NumIntegrAction(segment, begin, end, function);
+
+	std::cout << "The integration scheme: " << Scheme(integral.ReturnTypeIntegr()) << "\n";
+	std::cout << "The Leibniz Integral: " << lebIntegr << "\n";
+	std::cout << "Numerical integration: " << numIntegr << "\n";
+	std::cout << "Error aproximate " << fabs(lebIntegr - numIntegr) << "\n";
+	std::cout << "\n";
+
+	segment = segment * 2;
+	function.Generate_regularGrid(segment, begin, end);
+
+	double numIntegrH2 = integral.NumIntegrAction(segment, begin, end, function);
+	std::cout << "The integration scheme: " << Scheme(integral.ReturnTypeIntegr()) << "\n";
+	std::cout << "The Leibniz Integral: " << lebIntegr << "\n";
+	std::cout << "Numerical integration: " << numIntegrH2 << "\n";
+	std::cout << "Error aproximate " << fabs(lebIntegr - numIntegrH2) << "\n";
+	std::cout << "\n";
+	
+	std::cout << "The order of approximation: " <<Order(lebIntegr, numIntegr, numIntegrH2)  << "\n";
+
+
 }

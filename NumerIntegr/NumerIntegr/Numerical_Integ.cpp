@@ -22,19 +22,21 @@
 //
 //}
 
-NumericalInteg :: NumericalInteg(INTEGR type)
+NumericalInteg :: NumericalInteg(INTEGR type1)
 {
-	switch (type)
+	switch (type1)
 	{
 		
 	case Gauss1://Work
 	{
+		type = Gauss1;
 		weight = { 2 };
 		points = { Point(0, 0, 0) };
 		break;
 	}
 	case Gauss4: //TO DO, dont work
 	{
+		type = Gauss4;
 		weight = { (18+sqrt(30)/36), (18-sqrt(30)/36), (18 + sqrt(30) / 36), (18 - sqrt(30) / 36) };
 		points = {  Point(-sqrt((3-2*sqrt(6/5))/7), 0, 0), 
 					Point(sqrt((3 - 2 * sqrt(6 / 5)) / 7), 0, 0),
@@ -44,17 +46,20 @@ NumericalInteg :: NumericalInteg(INTEGR type)
 	}
 	case Gauss5:
 	{
+		type = Gauss5;
 		//TO DO
 		break;
 	}
 	case Trap://Work
 	{
+		type = Trap;
 		weight = { 1,1 };
 		points = { Point(1, 0, 0),Point(-1, 0, 0) };
 		break;
 	}
 	case Simpson://Work
 	{
+		type = Simpson;
 		weight = { 4/3, 1/3, 4/3, 1/3 };
 		points = { Point(0, 0, 0),Point(-1, 0, 0),Point(1, 0, 0) };
 		break;
@@ -77,3 +82,7 @@ double NumericalInteg::NumIntegrAction(const int& segm, const double& begin, con
 	}
 	return result*h/2;
 }
+//INTEGR ReturnTypeIntegr()
+//{
+//	return type;
+//}

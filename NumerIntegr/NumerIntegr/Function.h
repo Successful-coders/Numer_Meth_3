@@ -18,7 +18,7 @@ public:
 	std::vector<Point> regularGrid;
 	// значение функции
 	std::vector<double> func_regularGrid;
-	void Generate_regularGrid(const int& segm, const double& begin, const double& end);
+	void Generate_regularGrid(const double& segm, const double& begin, const double& end);
 	
 	std::function<double(const Point & P)> Fsinx =[](const Point& P) { return -cos(P.x()); };
 	std::function<double(const Point & P)> Fxsin1000x =[](const Point& P) 
