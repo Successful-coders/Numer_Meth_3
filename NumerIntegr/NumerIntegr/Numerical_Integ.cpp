@@ -34,20 +34,18 @@ NumericalInteg :: NumericalInteg(INTEGR type1)
 		points = { Point(0, 0, 0) };
 		break;
 	}
-	case Gauss4: //TO DO, dont work
+	case Gauss2:
 	{
-		type = Gauss4;
-		weight = { (18+sqrt(30)/36), (18-sqrt(30)/36), (18 + sqrt(30) / 36), (18 - sqrt(30) / 36) };
-		points = {  Point(-sqrt((3-2*sqrt(6/5))/7), 0, 0), 
-					Point(sqrt((3 - 2 * sqrt(6 / 5)) / 7), 0, 0),
-					Point(-sqrt((3 + 2 * sqrt(6 / 5)) / 7), 0, 0),
-					Point(sqrt((3 + 2 * sqrt(6 / 5)) / 7), 0, 0) };
+		type = Gauss2;
+		weight = { 1,1 };
+		points = { Point(-1 / sqrt(3),0,0), Point(1 / sqrt(3),0,0) };
 		break;
 	}
-	case Gauss5:
+	case Gauss3:
 	{
-		type = Gauss5;
-		//TO DO
+		type = Gauss3;
+		weight = {8.0/9.0, 5.0 / 9.0, 5.0/9.0 };
+		points = { Point(0,0,0), Point(sqrt(3 / 5),0,0), Point(-sqrt(3 / 5),0,0) };
 		break;
 	}
 	case Trap://Work
@@ -60,7 +58,7 @@ NumericalInteg :: NumericalInteg(INTEGR type1)
 	case Simpson://Work
 	{
 		type = Simpson;
-		weight = { 4/3, 1/3, 4/3, 1/3 };
+		weight = { 4.0/3.0, 1.0/3.0, 1.0/3.0};
 		points = { Point(0, 0, 0),Point(-1, 0, 0),Point(1, 0, 0) };
 		break;
 	}

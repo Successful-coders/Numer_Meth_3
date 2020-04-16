@@ -2,7 +2,7 @@
 #include "Point.h"
 #include "Function.h"
 
-enum INTEGR { Gauss1, Gauss4, Gauss5, Gauss6, Trap, Simpson };
+enum INTEGR { Gauss1, Gauss2, Gauss3, Trap, Simpson };
 class NumericalInteg 
 {
 private:

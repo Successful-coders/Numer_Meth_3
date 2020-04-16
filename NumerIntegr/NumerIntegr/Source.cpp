@@ -9,6 +9,10 @@ std::string Scheme(INTEGR function)
 		return "Trapeze";
 	if (function == Simpson)
 		return "Simpson";
+	if (function == Gauss2)
+		return "Gauss 2";
+	if (function == Gauss3)
+		return "Gauss 3";
 }
 
 double Order(const double& leibIntegr, const double& numIntegrH, const double& numIntegrH2)
