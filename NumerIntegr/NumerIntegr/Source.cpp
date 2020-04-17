@@ -39,14 +39,14 @@ int main()
 	std::cout << "The integration scheme: " << Scheme(integral.ReturnTypeIntegr()) << "\n";
 	std::cout << "I: " << I << "\n";
 	std::cout << "Ih: " << Ih << "\n";
-	double diff_I_Ih = fabs(I - Ih);
+	double diff_I_Ih = I - Ih;
 
 	segment *= 2;
 	function.Generate_regularGrid(segment, begin, end);
 
 	Ih2 = integral.NumIntegrAction(segment, begin, end, function);
 	std::cout << "Ih2: " << Ih2 << "\n";
-	double diff_I_Ih2 = fabs(I - Ih2);
+	double diff_I_Ih2 = I - Ih2;
 	std::cout << "I - Ih2: " << diff_I_Ih2 << "\n";
 
 	double k = log2f(abs(1 + (Ih2 - Ih) / diff_I_Ih2));

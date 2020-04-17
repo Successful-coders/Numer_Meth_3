@@ -70,7 +70,7 @@ double NumericalInteg::NumIntegrAction(const int& segm, const double& begin, con
 	double result = 0;
 	double h = (end - begin) / segm;
 
-	for (int i = 0; i < segm +1; i++)
+	for (int i = 0; i < segm; i++)
 	{
 		for (int k = 0; k < points.size(); k++)
 		{
